@@ -1,5 +1,6 @@
 import React from "react";
 import { browserHistory } from "react-router";
+import {Link} from "react-router";
 
 export class Register extends React.Component {
     constructor(props) {
@@ -14,6 +15,12 @@ export class Register extends React.Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+      this.setState({
+        isLoggedIn: (sessionStorage.getItem('token') != null ? true : false)
+      });
     }
 
     handleInputChange(event) {
@@ -63,12 +70,42 @@ export class Register extends React.Component {
         const error = this.state.error;
         const style = {"margin-bottom": '2em'};
         let button;
+        let navs;
+        if(this.state.isLoggedIn){
+          navs = (
+            <ul className="nav navbar-nav">
+              <li><Link to={"/home/logout"} activeClassName={"active"}>Logout</Link></li>
+            </ul>
+          );
+        } else {
+          navs = (
+            <ul className="nav navbar-nav">
+              <li><Link to={"/home"} activeClassName={"active"}>Login</Link></li>
+              <li><Link to={"/register"} activeClassName={"active"}>Register</Link></li>
+            </ul>
+          );
+        }
         if (error) {
             button = <p>Email already exists!</p>;
         } else {
             button = <p></p>;
         }
         return (
+          <div className="container">
+                <div className="row">
+                    <div className="col-xs-10 col-xs-offset-1">
+                        <nav className="navbar navbar-default">
+                            <div className="container">
+                                <div className="navbar-header">
+                                    {navs}
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <hr/>
+                <div className="row">
+                    <div className="col-xs-10 col-xs-offset-1">
           <form onSubmit={this.handleSubmit}>
                 <h2 style={style}>Register</h2>
                 <div className="row" style={style}>
@@ -84,6 +121,9 @@ export class Register extends React.Component {
                     {button}
                 </div>
             </form>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
