@@ -29,10 +29,11 @@ export class User extends React.Component {
           .then(res => res.json())
           .then(
             (result) => {
+              console.log(result)
               this.setState({
                 isLoaded: true,
                 items: result,
-                error: (result.err == true ? {message: 'Invalid session'} : null)
+                error: (result.err == true ? {message: result.response} : null)
               });
             },
             (error) => {
