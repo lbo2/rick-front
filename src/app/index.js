@@ -10,9 +10,6 @@ import {Register} from "./components/register";
 class App extends React.Component {
     componentDidMount() {
         console.log('se carga pagina')
-        if(this.props.route.path == 'home/logout') {
-            sessionStorage.clear();
-        }
     }
     render() {
         return (

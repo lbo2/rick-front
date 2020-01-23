@@ -61,6 +61,7 @@ export class Register extends React.Component {
 
     render() {
         const error = this.state.error;
+        const style = {"margin-bottom": '2em'};
         let button;
         if (error) {
             button = <p>Email already exists!</p>;
@@ -68,19 +69,21 @@ export class Register extends React.Component {
             button = <p></p>;
         }
         return (
-            <form onSubmit={this.handleSubmit}>
-                <h3>Register</h3>
-            <label>
-              Email:
-              <input type="text" name="email" value={this.state.email} onChange={this.handleInputChange} />
-            </label>
-            <label>
-              Password:
-              <input type="text" name="password" value={this.state.password} onChange={this.handleInputChange} />
-            </label>
-            <input type="submit" value="Submit"  className="btn btn-primary"/>
-            {button}
-          </form>
+          <form onSubmit={this.handleSubmit}>
+                <h2 style={style}>Register</h2>
+                <div className="row" style={style}>
+                    <label className="col-md-2">Email:</label>
+                    <input className="col-md-3" type="email" name="email" value={this.state.email} onChange={this.handleInputChange} />
+                </div>
+                <div className="row" style={style}>
+                    <label className="col-md-2">Password:</label>
+                    <input className="col-md-3" type="password" name="password" value={this.state.password} onChange={this.handleInputChange} />
+                </div>
+                <div className="row">
+                    <input className="col-md-2" type="submit" value="Login" className="btn btn-primary"/>
+                    {button}
+                </div>
+            </form>
         );
     }
 }
